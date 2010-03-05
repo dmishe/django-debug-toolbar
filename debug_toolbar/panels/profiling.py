@@ -1,10 +1,12 @@
 import tempfile
 import hotshot
 import hotshot.stats
+from cStringIO import StringIO
 
 
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
+
 from debug_toolbar.panels import DebugPanel
 
 
@@ -55,6 +57,9 @@ class ProfilingPanel(DebugPanel):
         self.prof.close()
 
         stats = hotshot.stats.load(self.tmpfile.name)
+
+        #hide stdout output
+        stats.stream = StringIO()
         stats.sort_stats('cumulative')
 
         self.stats = stats
