@@ -69,7 +69,7 @@ class ProfilingPanel(DebugPanel):
         
         for func in self.stats.get_print_list({})[1]:
             cc, nc, tt, ct, callers = self.stats.stats[func]
-            self.list.append((cc, nc, f8(tt), f8(ct), callers))
+            self.list.append((cc, nc, f8(tt), f8(ct), func[2], func[0], func[1]))
         
         return response
 
